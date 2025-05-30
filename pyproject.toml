@@ -21,3 +21,22 @@ disallow_incomplete_defs = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
+
+[tool.poe.tasks]
+# Environment setup tasks
+setup = { cmd = "uv venv && source .venv/bin/activate" }
+install = { cmd = "uv pip install -r requirements.txt" }
+install-dev = { cmd = "cd core && uv pip install -e . && cd .." }
+
+# Run apps
+run-sample = { cmd = "python apps/sample_app.py" }
+
+# Development tasks
+lint = { cmd = "flake8 core apps tests" }
+format = { cmd = "black core apps tests" }
+test = { cmd = "pytest" }
+test-core = { cmd = "pytest tests/core" }
+
+# Combined tasks
+setup-all = { sequence = ["setup", "install", "install-dev"] }
+check = { sequence = ["lint", "test"] }
