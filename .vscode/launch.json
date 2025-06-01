@@ -11,12 +11,51 @@
             "args": []
         },
         {
+            "name": "Python: Sample App (API Mode)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/sample_app.py",
+            "args": ["--mode", "api"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "Python: Integration Test",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/tools/integration_test.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug NestJS Application",
+            "args": [
+                "${workspaceFolder}/apps/dataapi/src/main.ts"
+            ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}/apps/dataapi",
+            "console": "integratedTerminal"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug API + Client",
+            "configurations": ["Debug NestJS Application", "Python: Sample App (API Mode)"]
         }
     ]
 }
